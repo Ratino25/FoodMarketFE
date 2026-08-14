@@ -4,9 +4,10 @@ import { Logo } from '../../assets';
 
 const SplashScreen = () => {
     return (
-        <View>
+        <View style={{backgroundColor: '#FFC700', flex: 1, justifyContent: 'center', alignItems: 'center'}}>
             <Logo />
-            <Text>FoodMarket</Text>
+            <View style={{height: 38}} />
+            <Text style={{fontSize: 32, color: '#020202', fontFamily: 'Poppins-Medium'}}>FoodMarket</Text>
         </View>
     );
 };

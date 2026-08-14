@@ -8,6 +8,7 @@
 import { StatusBar, StyleSheet, Text, useColorScheme, View } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { SplashScreen } from './pages';
+import { NavigationContainer } from '@react-navigation/native';
 
 function App() {
   const isDarkMode = useColorScheme() === 'dark';
@@ -17,7 +18,9 @@ function App() {
     //   <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
     //   <AppContent />
     // </SafeAreaProvider>
-    <SplashScreen />
+    <NavigationContainer>
+      <SplashScreen />
+    </NavigationContainer>
   );
 }
 
