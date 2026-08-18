@@ -1,8 +1,13 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { Logo } from '../../assets';
 
-const SplashScreen = () => {
+const SplashScreen = ({ navigation }) => {
+    useEffect(() => {
+        setTimeout(() => {
+            navigation.replace('SignIn');
+        }, 3000);
+    }, []);    
     return (
         <View style={{backgroundColor: '#FFC700', flex: 1, justifyContent: 'center', alignItems: 'center'}}>
             <Logo />
