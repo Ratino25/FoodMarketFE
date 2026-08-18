@@ -15,17 +15,18 @@ function App() {
   const isDarkMode = useColorScheme() === 'dark';
 
   return (
-    // <SafeAreaProvider>
-    //   <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-    //   <AppContent />
-    // </SafeAreaProvider>
-    <NavigationContainer>
-      {/* <SplashScreen />
-      <SignIn /> */}
-      <Router/>
-    </NavigationContainer>
+    <SafeAreaProvider>
+      <StatusBar
+        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
+      />
+
+      <NavigationContainer>
+        <Router />
+      </NavigationContainer>
+    </SafeAreaProvider>
   );
 }
+
 
 function AppContent() {
   return (
