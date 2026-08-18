@@ -9,6 +9,7 @@ import { StatusBar, StyleSheet, Text, useColorScheme, View } from 'react-native'
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { SplashScreen, SignIn } from './pages';
 import { NavigationContainer } from '@react-navigation/native';
+import Router from './router';
 
 function App() {
   const isDarkMode = useColorScheme() === 'dark';
@@ -19,8 +20,9 @@ function App() {
     //   <AppContent />
     // </SafeAreaProvider>
     <NavigationContainer>
-      {/* <SplashScreen /> */}
-      <SignIn />
+      {/* <SplashScreen />
+      <SignIn /> */}
+      <Router/>
     </NavigationContainer>
   );
 }
