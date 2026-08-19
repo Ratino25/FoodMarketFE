@@ -5,7 +5,7 @@ import { Header, TextInput, Button, Gap, Select } from '../../components';
 const SignUpAddress = ({ navigation }) => {
     return (
         <View style={styles.page}>
-            <Header title="Address" subtitle="Make sure it's valid" onBack={() => navigation.goBack('SignIn')} />
+            <Header title="Address" subtitle="Make sure it's valid" onBack={() => navigation.navigate('SignIn')} />
             <View style={styles.container}>
                 
                 <TextInput label="Phone Number" placeholder="Enter your phone number " />
@@ -16,7 +16,7 @@ const SignUpAddress = ({ navigation }) => {
                 <Gap height={24} />
                 <Select label="City" />
                 <Gap height={24} />
-                <Button text="Sign Up Now" />
+                <Button text="Sign Up Now" onPress={() => navigation.navigate('SuccessSignUp')} />
 
             </View>
 
