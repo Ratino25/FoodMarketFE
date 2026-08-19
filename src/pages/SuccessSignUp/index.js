@@ -3,14 +3,14 @@ import { View, Text, StyleSheet } from "react-native";
 import { IlSuccessSignUp } from "../../assets";
 import { Button } from "../../components";
 
-const SuccessSignUp = () => {
+const SuccessSignUp = ({ navigation }) => {
     return (
         <View style={styles.page}>
             <IlSuccessSignUp />
             <Text style={styles.title}>Success Sign Up</Text>
             <Text style={styles.subtitle}>Your account has been created successfully!</Text>
             <View style={styles.buttonContainer}>
-                <Button text="Find Foods" />
+                <Button text="Find Foods" onPress={() => navigation.replace('MainApp')} />
             </View>
 
         </View>
