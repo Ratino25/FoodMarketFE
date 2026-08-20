@@ -2,13 +2,14 @@ import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import {SplashScreen, SignIn, SignUp, SignUpAddress, SuccessSignUp, Home, Order, Profile} from '../pages';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { ButtonNavigation } from '../components';
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
 const MainApp = () => {
     return(
-        <Tab.Navigator>
+        <Tab.Navigator tabBar={props => <ButtonNavigation {...props} />} >
             <Tab.Screen name="Home" component={Home} />
             <Tab.Screen name="Order" component={Order} />
             <Tab.Screen name="Profile" component={Profile} />
