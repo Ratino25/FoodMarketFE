@@ -1,14 +1,18 @@
 import React from 'react';
-import { ScrollView, StyleSheet, View } from 'react-native';
+import { ScrollView, StyleSheet, View, useWindowDimensions } from 'react-native';
 import { foodDummy1, foodDummy2, foodDummy3 } from '../../assets';
 import { FoodCard, Gap, HomeProfile, HomeTabSection } from '../../components';
 
 
 const Home = () => {
-    
+    const { height } = useWindowDimensions();
 
     return (
-        <View style={styles.page} >
+        <ScrollView
+            style={styles.page}
+            contentContainerStyle={styles.contentContainer}
+            nestedScrollEnabled
+        >
             <HomeProfile />
             <View>
                 <ScrollView horizontal showsHorizontalScrollIndicator={false} >
@@ -22,11 +26,11 @@ const Home = () => {
                 </ScrollView>
             </View>
 
-            <View style={styles.tabContainer} >
+            <View style={[styles.tabContainer, { height: height * 0.65 }]} >
                 <HomeTabSection />
             </View>
 
-        </View>
+        </ScrollView>
         
     )
 }
@@ -38,6 +42,9 @@ const styles = StyleSheet.create({
         flex: 1,
         // backgroundColor: 'yellow',
     },
+    contentContainer: {
+        flexGrow: 1,
+    },
     
     
     foodCardContainer: {
@@ -45,7 +52,7 @@ const styles = StyleSheet.create({
         marginVertical: 24,
     },
     tabContainer: {
-        flex: 1,
+        minHeight: 400,
     }
 
 })

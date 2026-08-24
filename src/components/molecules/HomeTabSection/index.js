@@ -20,12 +20,14 @@ const renderTabBar = (props) => {
             tabStyle={{
                 width: 'auto',
             }}
-            renderLabel={({ route, focused, color }) => {
+            activeColor="#020202"
+            inactiveColor="#8D92A3"
+            renderLabel={({ route, color }) => {
                 return (
                     <Text
                         style={{
                             fontFamily: 'Poppins-Medium',
-                            color: focused ? '#020202' : '#8D92A3',
+                            color,
                         }}
                     >
                         {route.title}

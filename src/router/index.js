@@ -9,7 +9,7 @@ const Tab = createBottomTabNavigator();
 
 const MainApp = () => {
     return(
-        <Tab.Navigator tabBar={props => <ButtonNavigation {...props} />  } screenOptions={{
+        <Tab.Navigator tabBar={props => <ButtonNavigation {...props} />  } detachInactiveScreens={false} screenOptions={{
                 headerShown: false,
             }}  >
             <Tab.Screen name="Home" component={Home} />
