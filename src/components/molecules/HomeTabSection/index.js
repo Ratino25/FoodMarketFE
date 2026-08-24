@@ -1,6 +1,8 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image, ScrollView, Dimensions } from 'react-native';
-import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
+import { Dimensions, ScrollView, StyleSheet, Text, View, useWindowDimensions } from 'react-native';
+import { SceneMap, TabBar, TabView } from 'react-native-tab-view';
+import { ItemListFood } from '../../molecules';
+import { foodDummy1, foodDummy2, foodDummy3 } from '../../../assets';
 
 const renderTabBar = (props) => {
     return (
@@ -34,21 +36,61 @@ const renderTabBar = (props) => {
     );
 };
 
-const FirstRoute = () => (
-    <View style={{ flex: 1, backgroundColor: '#ff4081' }} />
-);
+const NewTaste = () => {
+    return (
+        <ScrollView showsVerticalScrollIndicator={false}>
+            <View style={{ paddingTop: 8, paddingHorizontal: 24, backgroundColor: 'white' }}>
+                <ItemListFood image={foodDummy1} />
+                <ItemListFood image={foodDummy2} />
+                <ItemListFood image={foodDummy3} />
+                <ItemListFood image={foodDummy1} />
+                <ItemListFood image={foodDummy2} />
+                <ItemListFood image={foodDummy3} />
+                <ItemListFood image={foodDummy1} />
+                <ItemListFood image={foodDummy2} />
+            </View>
+        </ScrollView>
+    )
+}
 
-const SecondRoute = () => (
-    <View style={{ flex: 1, backgroundColor: '#673ab7' }} />
-);
+const Popular = () => {
+     return (
+        <ScrollView showsVerticalScrollIndicator={false}>
+            <View style={{ paddingTop: 8, paddingHorizontal: 24, backgroundColor: 'white' }}>
+                <ItemListFood image={foodDummy1} />
+                <ItemListFood image={foodDummy2} />
+                <ItemListFood image={foodDummy3} />
+                <ItemListFood image={foodDummy1} />
+                <ItemListFood image={foodDummy2} />
+                <ItemListFood image={foodDummy3} />
+                <ItemListFood image={foodDummy1} />
+                <ItemListFood image={foodDummy2} />
+            </View>
+        </ScrollView>
+    )
+}
 
-const ThirdRoute = () => (
-    <View style={{ flex: 1, backgroundColor: '#7db73a' }} />
-);
+const Recommended  = () => {
+     return (
+        <ScrollView showsVerticalScrollIndicator={false}>
+            <View style={{ paddingTop: 8, paddingHorizontal: 24, backgroundColor: 'white' }}>
+                <ItemListFood image={foodDummy1} />
+                <ItemListFood image={foodDummy2} />
+                <ItemListFood image={foodDummy3} />
+                
+            </View>
+        </ScrollView>
+    )
+}
 
-const initialLayout = { width: Dimensions.get('window').width };
+const renderScene = SceneMap({
+    1: NewTaste,
+    2: Popular,
+    3: Recommended,
+});
 
 const HomeTabSection = ({ title, type, onPress }) => {
+    const layout = useWindowDimensions();
     const [index, setIndex] = React.useState(0);
     const [routes] = React.useState([
         { key: '1', title: 'New Taste' },
@@ -56,11 +98,6 @@ const HomeTabSection = ({ title, type, onPress }) => {
         { key: '3', title: 'Recommended' },
     ]);
 
-    const renderScene = SceneMap({
-        1: FirstRoute,
-        2: SecondRoute,
-        3: FirstRoute,
-    });
     return (
 
         <TabView
@@ -68,7 +105,7 @@ const HomeTabSection = ({ title, type, onPress }) => {
             navigationState={{ index, routes }}
             renderScene={renderScene}
             onIndexChange={setIndex}
-            initialLayout={initialLayout}
+            initialLayout={{ width: layout.width }}
         />
 
     )

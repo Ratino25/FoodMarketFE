@@ -9,7 +9,9 @@ const Tab = createBottomTabNavigator();
 
 const MainApp = () => {
     return(
-        <Tab.Navigator tabBar={props => <ButtonNavigation {...props} />} >
+        <Tab.Navigator tabBar={props => <ButtonNavigation {...props} />  } screenOptions={{
+                headerShown: false,
+            }}  >
             <Tab.Screen name="Home" component={Home} />
             <Tab.Screen name="Order" component={Order} />
             <Tab.Screen name="Profile" component={Profile} />
