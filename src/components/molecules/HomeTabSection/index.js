@@ -41,7 +41,7 @@ const renderTabBar = (props) => {
 const NewTaste = () => {
     return (
         <ScrollView showsVerticalScrollIndicator={false}>
-            <View style={{ paddingTop: 8, paddingHorizontal: 24, backgroundColor: 'white' }}>
+            <View style={{ paddingTop: 8, paddingHorizontal: 24, backgroundColor: 'white', elevation: 0, shadowOpacity: 0, borderBottomColor: '#F2F2F2', borderBottomWidth: 1 }}>
                 <ItemListFood image={foodDummy1} />
                 <ItemListFood image={foodDummy2} />
                 <ItemListFood image={foodDummy3} />
@@ -58,7 +58,7 @@ const NewTaste = () => {
 const Popular = () => {
      return (
         <ScrollView showsVerticalScrollIndicator={false}>
-            <View style={{ paddingTop: 8, paddingHorizontal: 24, backgroundColor: 'white' }}>
+            <View style={{ paddingTop: 8, paddingHorizontal: 24, backgroundColor: 'white', elevation: 0, shadowOpacity: 0, borderBottomColor: '#F2F2F2', borderBottomWidth: 1 }}>
                 <ItemListFood image={foodDummy1} />
                 <ItemListFood image={foodDummy2} />
                 <ItemListFood image={foodDummy3} />
@@ -75,7 +75,7 @@ const Popular = () => {
 const Recommended  = () => {
      return (
         <ScrollView showsVerticalScrollIndicator={false}>
-            <View style={{ paddingTop: 8, paddingHorizontal: 24, backgroundColor: 'white' }}>
+            <View style={{ paddingTop: 8, paddingHorizontal: 24, backgroundColor: 'white', elevation: 0, shadowOpacity: 0, borderBottomColor: '#F2F2F2', borderBottomWidth: 1 }}>
                 <ItemListFood image={foodDummy1} />
                 <ItemListFood image={foodDummy2} />
                 <ItemListFood image={foodDummy3} />
@@ -108,6 +108,7 @@ const HomeTabSection = ({ title, type, onPress }) => {
             renderScene={renderScene}
             onIndexChange={setIndex}
             initialLayout={{ width: layout.width }}
+            backgroundColor="white"
         />
 
     )
