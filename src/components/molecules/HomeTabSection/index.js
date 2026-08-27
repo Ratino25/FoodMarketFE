@@ -3,6 +3,7 @@ import { Dimensions, ScrollView, StyleSheet, Text, View, useWindowDimensions } f
 import { SceneMap, TabBar, TabView } from 'react-native-tab-view';
 import { ItemListFood } from '../../molecules';
 import { foodDummy1, foodDummy2, foodDummy3 } from '../../../assets';
+import { useNavigation } from '@react-navigation/native';
 
 const renderTabBar = (props) => {
     return (
@@ -39,46 +40,49 @@ const renderTabBar = (props) => {
 };
 
 const NewTaste = () => {
+    const navigation = useNavigation();
     return (
         <ScrollView showsVerticalScrollIndicator={false}>
             <View style={{ paddingTop: 8, paddingHorizontal: 24, backgroundColor: 'white', elevation: 0, shadowOpacity: 0, borderBottomColor: '#F2F2F2', borderBottomWidth: 1 }}>
-                <ItemListFood image={foodDummy1} />
-                <ItemListFood image={foodDummy2} />
-                <ItemListFood image={foodDummy3} />
-                <ItemListFood image={foodDummy1} />
-                <ItemListFood image={foodDummy2} />
-                <ItemListFood image={foodDummy3} />
-                <ItemListFood image={foodDummy1} />
-                <ItemListFood image={foodDummy2} />
+                <ItemListFood image={foodDummy1} onPress={() => navigation.navigate('FoodDetail')} />
+                <ItemListFood image={foodDummy2} onPress={() => navigation.navigate('FoodDetail')} />
+                <ItemListFood image={foodDummy3} onPress={() => navigation.navigate('FoodDetail')} />
+                <ItemListFood image={foodDummy1} onPress={() => navigation.navigate('FoodDetail')} />
+                <ItemListFood image={foodDummy2} onPress={() => navigation.navigate('FoodDetail')} />
+                <ItemListFood image={foodDummy3} onPress={() => navigation.navigate('FoodDetail')} />
+                <ItemListFood image={foodDummy1} onPress={() => navigation.navigate('FoodDetail')} />
+                <ItemListFood image={foodDummy2} onPress={() => navigation.navigate('FoodDetail')} />
             </View>
         </ScrollView>
     )
 }
 
 const Popular = () => {
+    const navigation = useNavigation();
      return (
         <ScrollView showsVerticalScrollIndicator={false}>
             <View style={{ paddingTop: 8, paddingHorizontal: 24, backgroundColor: 'white', elevation: 0, shadowOpacity: 0, borderBottomColor: '#F2F2F2', borderBottomWidth: 1 }}>
-                <ItemListFood image={foodDummy1} />
-                <ItemListFood image={foodDummy2} />
-                <ItemListFood image={foodDummy3} />
-                <ItemListFood image={foodDummy1} />
-                <ItemListFood image={foodDummy2} />
-                <ItemListFood image={foodDummy3} />
-                <ItemListFood image={foodDummy1} />
-                <ItemListFood image={foodDummy2} />
+                <ItemListFood image={foodDummy1} onPress={() => navigation.navigate('FoodDetail')} />
+                <ItemListFood image={foodDummy2} onPress={() => navigation.navigate('FoodDetail')} />
+                <ItemListFood image={foodDummy3} onPress={() => navigation.navigate('FoodDetail')} />
+                <ItemListFood image={foodDummy1} onPress={() => navigation.navigate('FoodDetail')} />
+                <ItemListFood image={foodDummy2} onPress={() => navigation.navigate('FoodDetail')} />
+                <ItemListFood image={foodDummy3} onPress={() => navigation.navigate('FoodDetail')} />
+                <ItemListFood image={foodDummy1} onPress={() => navigation.navigate('FoodDetail')} />
+                <ItemListFood image={foodDummy2} onPress={() => navigation.navigate('FoodDetail')} />
             </View>
         </ScrollView>
     )
 }
 
 const Recommended  = () => {
+    const navigation = useNavigation();
      return (
         <ScrollView showsVerticalScrollIndicator={false}>
             <View style={{ paddingTop: 8, paddingHorizontal: 24, backgroundColor: 'white', elevation: 0, shadowOpacity: 0, borderBottomColor: '#F2F2F2', borderBottomWidth: 1 }}>
-                <ItemListFood image={foodDummy1} />
-                <ItemListFood image={foodDummy2} />
-                <ItemListFood image={foodDummy3} />
+                <ItemListFood image={foodDummy1} onPress={() => navigation.navigate('FoodDetail')} />
+                <ItemListFood image={foodDummy2} onPress={() => navigation.navigate('FoodDetail')} />
+                <ItemListFood image={foodDummy3} onPress={() => navigation.navigate('FoodDetail')} />
                 
             </View>
         </ScrollView>

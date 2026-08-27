@@ -1,6 +1,6 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import {SplashScreen, SignIn, SignUp, SignUpAddress, SuccessSignUp, Home, Order, Profile} from '../pages';
+import {SplashScreen, SignIn, SignUp, SignUpAddress, SuccessSignUp, Home, Order, Profile, FoodDetail} from '../pages';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { ButtonNavigation } from '../components';
 
@@ -28,6 +28,7 @@ const Router = () => {
             <Stack.Screen name="SignUpAddress" component={SignUpAddress} options={{headerShown: false}} />
             <Stack.Screen name="SuccessSignUp" component={SuccessSignUp} options={{headerShown: false}} />
             <Stack.Screen name="MainApp" component={MainApp} options={{headerShown: false}} />
+            <Stack.Screen name="FoodDetail" component={FoodDetail} options={{headerShown: false}} />
         </Stack.Navigator>
     );
 };
