@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import { Button, Header, ItemListFood, ItemValue } from '../../components';
 import { foodDummy1 } from '../../assets';
 
-const OrderSummay = () => {
+const OrderSummay = ({navigation}) => {
     return(
         <View>
             <Header title="Payment" subtitle="You deserve better meal" onBack={() => {}} />
@@ -14,7 +14,7 @@ const OrderSummay = () => {
                 <ItemValue label="Cherry" value="IDR 18.000" />
                 <ItemValue label="Drive" value="IDR 5000" />
                 <ItemValue label="Tax 10%" value="IDR 1000" />
-                <ItemValue label="Total Price" value="IDR 100.000" />
+                <ItemValue label="Total Price" value="IDR 100.000" valueColor="#1ABC9C" />
             </View>
 
             <View style={styles.content}>
@@ -26,7 +26,7 @@ const OrderSummay = () => {
                 <ItemValue label="City" value="Depok" />
             </View>
             <View style={styles.button}>
-                <Button text="Checkout" />
+                <Button text="Checkout" onPress={() => navigation.replace('SuccessOrder')} />
             </View>
 
         </View>
