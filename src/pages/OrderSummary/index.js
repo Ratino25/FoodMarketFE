@@ -9,7 +9,7 @@ const OrderSummay = ({navigation}) => {
             <Header title="Payment" subtitle="You deserve better meal" onBack={() => {}} />
             <View style={styles.content}>
                 <Text style={styles.label} >Item Ordered</Text>
-                <ItemListFood image={foodDummy1} items={14} />
+                <ItemListFood type="order-summary" name="Soup Ayam" price="150.000" items={14} image={foodDummy1} />
                 <Text style={styles.label} >Details Transaction</Text>
                 <ItemValue label="Cherry" value="IDR 18.000" />
                 <ItemValue label="Drive" value="IDR 5000" />
