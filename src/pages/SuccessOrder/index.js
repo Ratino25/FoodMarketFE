@@ -14,7 +14,7 @@ const SuccessOrder = ({navigation}) => {
                 <Button text="Order Other Foods" onPress={() => navigation.replace('MainApp')} />
             </View>
             <View style={styles.buttonContainer}>
-                <Button text="View My Order" onPress={() => navigation.replace('MainApp')} 
+                <Button text="View My Order" onPress={() => navigation.replace('MainApp', {screen: 'Order'})} 
                 color="#8D92A3"
                 textColor="white" />
             </View>
