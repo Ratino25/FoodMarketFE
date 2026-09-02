@@ -1,9 +1,9 @@
-import React from 'react';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
-import { Button, Gap, Header, ItemListFood, ItemValue } from '../../components';
-import { foodDummy1 } from '../../assets';
+import React from "react";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { Button, Gap, Header, ItemListFood, ItemValue } from "../../components";
+import { foodDummy1 } from "../../assets";
 
-const OrderSummay = ({navigation}) => {
+const OrderDetail = () => {
     return(
         <ScrollView>
             <Header title="Payment" subtitle="You deserve better meal" onBack={() => {}} />
@@ -25,15 +25,22 @@ const OrderSummay = ({navigation}) => {
                 <ItemValue label="House No" value="A5" />
                 <ItemValue label="City" value="Depok" />
             </View>
-            <View style={styles.button}>
-                <Button text="Checkout" onPress={() => navigation.replace('SuccessOrder')} />
+
+            <View style={styles.content}>
+                <Text style={styles.label} >Order Status: </Text>                
+                <ItemValue label="#FM209214" value="Depok" valueColor="#1ABC9C" />
             </View>
-            <Gap height={40}/>
+            <View style={styles.button}>
+                <Button text="Cancel My Order" onPress={() => navigation.replace('SuccessOrder')} color="#D9435E" textColor="white" />
+            </View>
+
+            <Gap height={40} />
+
         </ScrollView>
     )
 }
 
-export default OrderSummay;
+export default OrderDetail;
 
 const styles = StyleSheet.create({
     content: {

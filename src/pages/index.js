@@ -9,6 +9,7 @@ import Profile from './Profile';
 import FoodDetail from './FoodDetail';
 import OrderSummary from './OrderSummary';
 import SuccessOrder from './SuccessOrder';
+import OderDetail from './OrderDetail';
 
 
 export {
@@ -22,5 +23,6 @@ export {
     Profile,
     FoodDetail,
     OrderSummary,
-    SuccessOrder
+    SuccessOrder,
+    OderDetail
 }
