@@ -1,0 +1,30 @@
+import React from 'react';
+import { StyleSheet, Text, View } from "react-native";
+import ProfileTabSection from '../ProfileTabSection';
+import { Image } from 'react-native-svg';
+import { IcNext } from '../../../assets';
+
+const ItemListMenu = ({text}) => {
+    return (
+        <View style={styles.container} >
+            <Text style={styles.text}>{text}</Text>
+            <IcNext/>
+        </View>
+    )
+}
+
+export default ItemListMenu;
+
+const styles = StyleSheet.create({
+    container: {
+        flexDirection: "row",
+        justifyContent: "space-between",
+        paddingVertical: 7,
+
+    },
+    text: {
+        fontSize: 14,
+        fontFamily: "Poppins-Reguler",
+        color: "#020202"
+    }
+})

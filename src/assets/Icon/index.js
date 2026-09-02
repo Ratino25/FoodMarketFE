@@ -25,6 +25,6 @@ export {
     IcStarOff,
     IcBackWhite,
     IcMin,
-    IcPlus
+    IcPlus,    
 
 };
