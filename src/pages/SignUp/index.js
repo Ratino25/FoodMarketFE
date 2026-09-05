@@ -1,8 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { Header, TextInput, Button, Gap } from '../../components';
 
 const SignUp = ({ navigation }) => {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const onSubmit =() => {
+        console.info("Email : ", email);
+        console.info("Password : ", password);  
+    }
     return (
         <View style={styles.page}>
             <Header title="Sign Up" subtitle="Create your account" onBack={() => navigation.goBack('SignIn')} />
@@ -14,16 +20,29 @@ const SignUp = ({ navigation }) => {
                         </View>
                     </View>
                 </View>
-                <TextInput label="Full Name" placeholder="Enter your full name" />
+                <TextInput 
+                    label="Full Name" 
+                    placeholder="Enter your full name" 
+                    value={email}
+                    onChangeText={(value) => setEmail(value)}    
+                />
                 <Gap height={16} />
-                <TextInput label="Email Address" placeholder="Enter your email" />
+                <TextInput 
+                    label="Email Address" 
+                    placeholder="Enter your email" 
+                    value={password}
+                    onChangeText={(value) => setPassword(value)}    
+                />
                 <Gap height={16} />
                 <TextInput label="Password" placeholder="Enter your password" />
                 <Gap height={24} />
-                <Button text="Continue" onPress={() => navigation.navigate('SignUpAddress')} />
-
+                <Button 
+                    text="Continue" 
+                    // onPress={() => navigation.navigate('SignUpAddress')} 
+                    onPress={onSubmit} 
+                    
+                />
             </View>
-
         </View>
     )
 }
