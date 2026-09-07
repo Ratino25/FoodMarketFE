@@ -10,6 +10,8 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { SplashScreen, SignIn } from './pages';
 import { NavigationContainer } from '@react-navigation/native';
 import Router from './router';
+import { Provider } from 'react-redux';
+import store from './redux/store';
 
 function App() {
   const isDarkMode = useColorScheme() === 'dark';
@@ -21,7 +23,10 @@ function App() {
       />
 
       <NavigationContainer>
-        <Router />
+        <Provider store={store}>
+          <Router />
+        </Provider>
+        
       </NavigationContainer>
     </SafeAreaProvider>
   );

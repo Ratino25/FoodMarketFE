@@ -1,26 +1,74 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import { Header, TextInput, Button, Gap, Select } from '../../components';
+import { useForm } from '../../utils';
+import { useDispatch, useSelector } from 'react-redux';
 
 const SignUpAddress = ({ navigation }) => {
+    const [form, setForm] = useForm({
+        phoneNumber: '',
+        address: '',
+        houseNumber: '',
+        city: 'Jakarta'
+    });
+
+    const dispatch = useDispatch();
+    const registerReducer = useSelector(state => state.registerReducer)
+
+    const onSubmit = () => {
+        console.log("form: ", form);
+        // dispatch({
+        //     type: "SET_ADDRESS",
+        //     value: form
+        // });
+        const data = {
+            ...form,
+            ...registerReducer
+        }
+        console.log("register reducer ", data);
+        // navigation.navigate('SuccessSignUp')
+    }
     return (
+        <ScrollView contentContainerStyle={{flexGrow: 1}} >
         <View style={styles.page}>
             <Header title="Address" subtitle="Make sure it's valid" onBack={() => navigation.navigate('SignIn')} />
             <View style={styles.container}>
                 
-                <TextInput label="Phone Number" placeholder="Enter your phone number " />
+                <TextInput 
+                    label="Phone Number" 
+                    placeholder="Enter your phone number " 
+                    value={form.phoneNumber}
+                    onChangeText={(value) => setForm('phoneNumber', value)}   
+                />
                 <Gap height={16} />
-                <TextInput label="Address" placeholder="Enter your address" />
+                <TextInput 
+                    label="Address" 
+                    placeholder="Enter your address" 
+                    value={form.address}
+                    onChangeText={(value) => setForm('address', value)}
+                />
                 <Gap height={16} />
-                <TextInput label="House No." placeholder="Enter your house number" />
+                <TextInput 
+                    label="House No." 
+                    placeholder="Enter your house number" 
+                    value={form.houseNumber}
+                    onChangeText={(value) => setForm('houseNumber', value)}    
+                />
                 <Gap height={24} />
-                <Select label="City" />
+                <Select 
+                    label="City" 
+                    value={form.city}
+                    onSelectChange={(value) => setForm('city', value)}    
+                />
                 <Gap height={24} />
-                <Button text="Sign Up Now" onPress={() => navigation.navigate('SuccessSignUp')} />
+                <Button 
+                    text="Sign Up Now" 
+                    onPress={onSubmit()} />
 
             </View>
 
         </View>
+        </ScrollView>
     )
 }
 

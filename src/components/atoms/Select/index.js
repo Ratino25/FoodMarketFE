@@ -2,14 +2,16 @@ import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 
-const Select = ({ label, value, onPress }) => {
+const Select = ({ label, value, onSelectChange }) => {
     return (
         <View>
             <Text style={styles.label}>{label}</Text>
             <View style={styles.input}>
                 <Picker>
-                {/* selectedValue={value} */}
-                {/* onValueChange={onPress} */}
+                selectedValue{value}
+                onValueChange={(itemValue) => 
+                    onSelectChange(itemValue)
+                }
 
                 <Picker.Item label="Select" value="select" />
                 <Picker.Item label="Option 1" value="option1" />
