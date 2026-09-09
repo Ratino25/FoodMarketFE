@@ -1,8 +1,10 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import { View, StyleSheet, ScrollView } from 'react-native';
 import { Header, TextInput, Button, Gap, Select } from '../../components';
 import { useForm } from '../../utils';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
+import axios from 'axios';
+import { showMessage, hideMessage } from 'react-native-flash-message';
 
 const SignUpAddress = ({ navigation }) => {
     const [form, setForm] = useForm({
@@ -12,21 +14,35 @@ const SignUpAddress = ({ navigation }) => {
         city: 'Jakarta'
     });
 
-    const dispatch = useDispatch();
     const registerReducer = useSelector(state => state.registerReducer)
 
     const onSubmit = () => {
         console.log("form: ", form);
-        // dispatch({
-        //     type: "SET_ADDRESS",
-        //     value: form
-        // });
         const data = {
-            ...form,
-            ...registerReducer
+            ...registerReducer,
+            ...form
         }
         console.log("register reducer ", data);
-        // navigation.navigate('SuccessSignUp')
+        const apiHost = Platform.OS === 'android' ? '10.0.2.2' : '127.0.0.1';
+        axios.post(`http://${apiHost}:8000/api/register`, data)
+        .then(res => {
+            console.log('data success: ', res.data);
+            showToast("Register success", 'success');
+            navigation.navigate('SuccessSignUp');
+        })
+        .catch(err => {
+            console.log("Sign up Error: ", err.response.data.message);
+            showToast(err?.response?.data?.message)
+        })
+
+    }
+
+    const showToast = (message, type) => {
+        showMessage({
+            message: message,
+            type: type === 'success' ? 'success' : 'denger',
+            backgroundColor: type === 'success' ? '#1ABC9C' : '#D9435E'
+        })
     }
     return (
         <ScrollView contentContainerStyle={{flexGrow: 1}} >
@@ -63,7 +79,7 @@ const SignUpAddress = ({ navigation }) => {
                 <Gap height={24} />
                 <Button 
                     text="Sign Up Now" 
-                    onPress={onSubmit()} />
+                    onPress={onSubmit} />
 
             </View>
 

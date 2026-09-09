@@ -5,13 +5,13 @@
  * @format
  */
 
-import { StatusBar, StyleSheet, Text, useColorScheme, View } from 'react-native';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { SplashScreen, SignIn } from './pages';
 import { NavigationContainer } from '@react-navigation/native';
-import Router from './router';
+import { StatusBar, StyleSheet, Text, useColorScheme, View } from 'react-native';
+import FlashMessage from 'react-native-flash-message';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Provider } from 'react-redux';
 import store from './redux/store';
+import Router from './router';
 
 function App() {
   const isDarkMode = useColorScheme() === 'dark';
@@ -25,6 +25,7 @@ function App() {
       <NavigationContainer>
         <Provider store={store}>
           <Router />
+          <FlashMessage position="top"/>
         </Provider>
         
       </NavigationContainer>
