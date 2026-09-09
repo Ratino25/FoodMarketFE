@@ -53,7 +53,7 @@ const SignUp = ({ navigation }) => {
                     <Gap height={16} />
                     <TextInput
                         label="Password" placeholder="Enter your password"
-                        value={form.passwrod}
+                        value={form.password}
                         onChangeText={(value) => setform('password', value)}
                         secureTextEntry
                     />

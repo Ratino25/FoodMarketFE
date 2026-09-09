@@ -1,10 +1,10 @@
 import React from 'react';
-import { View, StyleSheet, ScrollView } from 'react-native';
+import { View, StyleSheet, ScrollView, Platform } from 'react-native';
 import { Header, TextInput, Button, Gap, Select } from '../../components';
 import { useForm } from '../../utils';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
-import { showMessage, hideMessage } from 'react-native-flash-message';
+import { showMessage } from 'react-native-flash-message';
 
 const SignUpAddress = ({ navigation }) => {
     const [form, setForm] = useForm({
@@ -14,36 +14,48 @@ const SignUpAddress = ({ navigation }) => {
         city: 'Jakarta'
     });
 
-    const registerReducer = useSelector(state => state.registerReducer)
+    const dispatch = useDispatch();
+    const registerReducer = useSelector(state => state.registerReducer);
 
     const onSubmit = () => {
         console.log("form: ", form);
         const data = {
             ...registerReducer,
             ...form
-        }
+        };
         console.log("register reducer ", data);
+
+        dispatch({ type: "SET_LOADING", value: true });
         const apiHost = Platform.OS === 'android' ? '10.0.2.2' : '127.0.0.1';
-        axios.post(`http://${apiHost}:8000/api/register`, data)
-        .then(res => {
-            console.log('data success: ', res.data);
-            showToast("Register success", 'success');
-            navigation.navigate('SuccessSignUp');
-        })
-        .catch(err => {
-            console.log("Sign up Error: ", err.response.data.message);
-            showToast(err?.response?.data?.message)
-        })
 
-    }
+        axios.post(`http://${apiHost}:8000/api/register`, data, {
+            timeout: 10000,
+        })
+            .then(res => {
+                console.log('data success: ', res.data);
+                showToast("Register success", 'success');
+                navigation.navigate('SuccessSignUp');
+            })
+            .catch(err => {
+                console.log('register error: ', err);
+                const isTimeout = err.code === 'ECONNABORTED' || err.code === 'ETIMEDOUT';
+                const message = isTimeout
+                    ? 'Koneksi timeout. Silakan coba lagi.'
+                    : err?.response?.data?.message || err?.message || 'Registrasi gagal';
+                showToast(message, 'danger');
+            })
+            .finally(() => {
+                dispatch({ type: "SET_LOADING", value: false });
+            });
+    };
 
-    const showToast = (message, type) => {
+    const showToast = (message, type = 'danger') => {
         showMessage({
             message: message,
-            type: type === 'success' ? 'success' : 'denger',
+            type: type === 'success' ? 'success' : 'danger',
             backgroundColor: type === 'success' ? '#1ABC9C' : '#D9435E'
-        })
-    }
+        });
+    };
     return (
         <ScrollView contentContainerStyle={{flexGrow: 1}} >
         <View style={styles.page}>

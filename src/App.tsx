@@ -6,12 +6,26 @@
  */
 
 import { NavigationContainer } from '@react-navigation/native';
-import { StatusBar, StyleSheet, Text, useColorScheme, View } from 'react-native';
+import { Platform, StatusBar, StyleSheet, useColorScheme, View } from 'react-native';
 import FlashMessage from 'react-native-flash-message';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { Provider } from 'react-redux';
+import { Provider, useSelector } from 'react-redux';
 import store from './redux/store';
 import Router from './router';
+import { Loading } from './components';
+
+const MainApp = () => {
+  const {isLoading} = useSelector((state) => state.globalReducer);
+  return (
+    <NavigationContainer>
+        <View style={styles.container}>
+          <Router />
+          {isLoading && <Loading />}
+          <FlashMessage position="top" animated={Platform.OS !== 'android'} />
+        </View>
+      </NavigationContainer>
+  );
+};
 
 function App() {
   const isDarkMode = useColorScheme() === 'dark';
@@ -22,35 +36,16 @@ function App() {
         barStyle={isDarkMode ? 'light-content' : 'dark-content'}
       />
 
-      <NavigationContainer>
-        <Provider store={store}>
-          <Router />
-          <FlashMessage position="top"/>
-        </Provider>
-        
-      </NavigationContainer>
+      <Provider store={store}>
+        <MainApp />
+      </Provider>
     </SafeAreaProvider>
-  );
-}
-
-
-function AppContent() {
-  return (
-    <View style={styles.container}>
-      <Text style={styles.title}>first App</Text>
-    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
   },
 });
 
