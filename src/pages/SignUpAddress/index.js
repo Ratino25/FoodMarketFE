@@ -1,10 +1,9 @@
 import React from 'react';
-import { View, StyleSheet, ScrollView, Platform } from 'react-native';
-import { Header, TextInput, Button, Gap, Select } from '../../components';
-import { useForm, showMessage } from '../../utils';
+import { ScrollView, StyleSheet, View } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import axios from 'axios';
-import FormData from 'react-native/types_generated/Libraries/Network/FormData';
+import { Button, Gap, Header, Select, TextInput } from '../../components';
+import { setLoading, singUpAction } from '../../redux/action';
+import { useForm } from '../../utils';
 
 const SignUpAddress = ({ navigation }) => {
     const [form, setForm] = useForm({
@@ -25,48 +24,11 @@ const SignUpAddress = ({ navigation }) => {
         };
         console.log("register reducer ", data);
 
-        dispatch({ type: "SET_LOADING", value: true });
-        const apiHost = Platform.OS === 'android' ? '10.0.2.2' : '127.0.0.1';
+        dispatch(setLoading(true));
 
-        axios.post(`http://${apiHost}:8000/api/register`, data, {
-            timeout: 10000,
-        })
-            .then(res => {
-                console.log('data success: ', res.data);
+        dispatch(singUpAction(data, photoRecuder, navigation));
 
-                if (photoReducer.isUploadPhoto) {
-                    const photoForUpload = new FormData();
-                    photoForUpload.append('file', photoReducer);
-                    axios.post(`http://${apiHost}:8000/api/user/photo`, photoForUpload, {
-                        headers: {
-                            'Authorization': `${res.data.data.token_type} ${res.data.data.access_token}`,
-                            "Content-Type": "multipart/form-data",
-                        }
-                    })
-                        .then(resUpload => {
-                            console.log('upload success: ', resUpload);
-                        })
-                        .catch(err => {
-                            console.log('upload error: ', err);
-                        })
-                }
-
-
-                dispatch({ type: 'SET_LOADING', value: false })
-                showMessage("Register success", 'success');
-                navigation.navigate('SuccessSignUp');
-            })
-            .catch(err => {
-                console.log('register error: ', err);
-                const isTimeout = err.code === 'ECONNABORTED' || err.code === 'ETIMEDOUT';
-                const message = isTimeout
-                    ? 'Koneksi timeout. Silakan coba lagi.'
-                    : err?.response?.data?.message || err?.message || 'Registrasi gagal';
-                showMessage(message, 'danger');
-            })
-            .finally(() => {
-                dispatch({ type: "SET_LOADING", value: false });
-            });
+        
     };
 
 
