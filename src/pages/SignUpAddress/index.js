@@ -35,7 +35,7 @@ const SignUpAddress = ({ navigation }) => {
     return (
         <ScrollView contentContainerStyle={{ flexGrow: 1 }} >
             <View style={styles.page}>
-                <Header title="Address" subtitle="Make sure it's valid" onBack={() => navigation.navigate('SignIn')} />
+                <Header title="Address" subtitle="Make sure it's valid" onBack={() => navigation.goBack()} />
                 <View style={styles.container}>
 
                     <TextInput

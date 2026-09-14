@@ -55,7 +55,7 @@ const SignUp = ({ navigation }) => {
     return (
         <ScrollView contentContainerStyle={{ flexGrow: 1 }} >
             <View style={styles.page}>
-                <Header title="Sign Up" subtitle="Create your account" onBack={() => navigation.goBack('SignIn')} />
+                <Header title="Sign Up" subtitle="Create your account" onBack={() => navigation.goBack()} />
                 <View style={styles.container}>
                     <View style={styles.photo}>
                         <TouchableOpacity>

@@ -10,7 +10,9 @@ const SuccessSignUp = ({ navigation }) => {
             <Text style={styles.title}>Success Sign Up</Text>
             <Text style={styles.subtitle}>Your account has been created successfully!</Text>
             <View style={styles.buttonContainer}>
-                <Button text="Find Foods" onPress={() => navigation.replace('MainApp')} />
+                <Button text="Find Foods" 
+                    onPress={() => navigation.reset({index : 0, routes: [{name: 'MainApp'}]})} 
+                />
             </View>
 
         </View>
