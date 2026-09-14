@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text } from 'react-native';
 import { Logo } from '../../assets';
 
 const SplashScreen = ({ navigation }) => {
@@ -7,7 +7,7 @@ const SplashScreen = ({ navigation }) => {
         setTimeout(() => {
             navigation.replace('SignIn');
         }, 3000);
-    }, []);    
+    }, [navigation]);
     return (
         <View style={{backgroundColor: '#FFC700', flex: 1, justifyContent: 'center', alignItems: 'center'}}>
             <Logo />

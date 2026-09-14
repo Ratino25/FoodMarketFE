@@ -3,7 +3,7 @@ import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { Button, Gap, Header, ItemListFood, ItemValue } from "../../components";
 import { foodDummy1 } from "../../assets";
 
-const OrderDetail = () => {
+const OrderDetail = ({ navigation }) => {
     return(
         <ScrollView>
             <Header title="Payment" subtitle="You deserve better meal" onBack={() => {}} />

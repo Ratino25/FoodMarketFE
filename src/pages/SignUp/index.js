@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Image } from 'react-native';
 import { Header, TextInput, Button, Gap } from '../../components';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { showMessage, useForm } from '../../utils';
-import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
-import ImagePicker from 'react-native-image-picker';
+import { launchCamera } from 'react-native-image-picker';
 
 const SignUp = ({ navigation }) => {
     const [form, setform] = useForm({
@@ -27,7 +26,7 @@ const SignUp = ({ navigation }) => {
     }
 
     const addPhoto = () => {
-        ImagePicker.launchCamera({
+        launchCamera({
             quality: 0.5,
             maxWidth: 200,
             maxHeight: 200
@@ -58,7 +57,7 @@ const SignUp = ({ navigation }) => {
                 <Header title="Sign Up" subtitle="Create your account" onBack={() => navigation.goBack()} />
                 <View style={styles.container}>
                     <View style={styles.photo}>
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={addPhoto}>
                             <View style={styles.boderPhoto}>
                                 {
                                     photo ? (<Image source={photo} style={styles.photoContainer}/>                                        

@@ -26,7 +26,7 @@ const SignUpAddress = ({ navigation }) => {
 
         dispatch(setLoading(true));
 
-        dispatch(singUpAction(data, photoRecuder, navigation));
+        dispatch(singUpAction(data, photoReducer, navigation));
 
         
     };

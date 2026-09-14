@@ -1,4 +1,4 @@
-import { createAsyncStorage } from "@react-native-async-storage/async-storage";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { showMessage } from "../showMessage";
 
 export const storeData= async (storageKey, value) => {
