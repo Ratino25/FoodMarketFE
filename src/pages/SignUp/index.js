@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Image } from 'rea
 import { Header, TextInput, Button, Gap } from '../../components';
 import { useDispatch } from 'react-redux';
 import { showMessage, useForm } from '../../utils';
-import { launchCamera } from 'react-native-image-picker';
+import { launchCamera, launchImageLibrary  } from 'react-native-image-picker';
 
 const SignUp = ({ navigation }) => {
     const [form, setform] = useForm({
@@ -25,30 +25,82 @@ const SignUp = ({ navigation }) => {
         navigation.navigate('SignUpAddress')
     }
 
+    // const addPhoto = () => {
+    //     launchCamera({
+    //         quality: 0.5,
+    //         maxWidth: 200,
+    //         maxHeight: 200
+    //     }, (response) => {
+    //         console.debug('Response = ', response);
+    //         if (response.didCancel || response.error) {
+    //             console.log("User cancelld");
+    //             showMessage('You did not select any photo');
+    //         } else {
+    //             const source = {uri: response.uri};
+    //             const dataImage = {
+    //                 uri: response.uri,
+    //                 type: response.type,
+    //                 name: response.fileName
+    //             };
+
+    //             setPhoto(source);
+    //             dispatch({type: 'SET_PHOTO', value: dataImage});
+    //             dispatch({type: 'SET_UPLOAD_STATUS', value: true});
+    //         }
+    //     })
+    // }
+
     const addPhoto = () => {
-        launchCamera({
+    launchImageLibrary(
+        {
+            mediaType: 'photo',
             quality: 0.5,
             maxWidth: 200,
-            maxHeight: 200
-        }, (response) => {
-            console.debug('Response = ', response);
-            if (response.didCancel || response.error) {
-                console.log("User cancelld");
+            maxHeight: 200,
+        },
+        (response) => {
+            console.log('Response = ', response);
+
+            if (response.didCancel) {
+                console.log('User cancelled image picker');
                 showMessage('You did not select any photo');
-            } else {
-                const source = {uri: response.uri};
+                return;
+            }
+
+            if (response.errorCode) {
+                console.log('ImagePicker Error: ', response.errorMessage);
+                showMessage(response.errorMessage || 'Failed to select photo');
+                return;
+            }
+
+            if (response.assets && response.assets.length > 0) {
+                const asset = response.assets[0];
+
+                const source = {
+                    uri: asset.uri,
+                };
+
                 const dataImage = {
-                    uri: response.uri,
-                    type: response.type,
-                    name: response.fileName
+                    uri: asset.uri,
+                    type: asset.type,
+                    name: asset.fileName,
                 };
 
                 setPhoto(source);
-                dispatch({type: 'SET_PHOTO', value: dataImage});
-                dispatch({type: 'SET_UPLOAD_STATUS', value: true});
+
+                dispatch({
+                    type: 'SET_PHOTO',
+                    value: dataImage,
+                });
+
+                dispatch({
+                    type: 'SET_UPLOAD_STATUS',
+                    value: true,
+                });
             }
-        })
-    }
+        }
+    );
+};
 
 
     return (
