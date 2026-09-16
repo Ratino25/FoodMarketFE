@@ -62,3 +62,22 @@ export const singUpAction = (dataRegister, photoReducer, navigation) => (dispatc
             dispatch(setLoading(false));
         });
 }
+
+export const signInAction = (form, navigation) => (dispatch) => {
+    dispatch(setLoading(true));
+    const apiHost = Platform.OS === 'android' ? '10.0.2.2' : '127.0.0.1';
+        console.log(apiHost)
+        axios.post(`http://${apiHost}:8000/api/login`, form)
+        .then(res => {
+            const token = `${res.data.data.token_type} ${res.data.data.access_token}`;
+            const profile = res.data.data.user;
+            dispatch(setLoading(false));
+            storeData('token',{value: token});
+            storeData("userProfile", profile);
+            navigation.reset({index: 0, routes: [{name: "MainApp"}]});
+        })
+        .catch(err => {
+            dispatch(setLoading(false));
+            showMessage(err?.response?.data?.message);
+        })
+}

@@ -3,6 +3,8 @@ import { View, Text, StyleSheet, Platform } from 'react-native';
 import { Header, TextInput, Button, Gap } from '../../components';
 import { useForm } from '../../utils';
 import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { setLoading, signInAction } from '../../redux/action';
 
 const SignIn = ({ navigation }) => {
     // const [email, setEmail] = useState('');
@@ -12,17 +14,10 @@ const SignIn = ({ navigation }) => {
         password: '',
     });
 
-
+    const dispatch = useDispatch();
     const onSubmit = () => {
-        const apiHost = Platform.OS === 'android' ? '10.0.2.2' : '127.0.0.1';
-        console.log(apiHost)
-        axios.post(`http://${apiHost}:8000/api/login`, form)
-        .then(res => {
-            console.log('success', res);
-        })
-        .catch(err => {
-            console.log('Error', err);
-        })
+        
+        dispatch(signInAction(form, navigation));
     }
     return (
         <View style={styles.page}>

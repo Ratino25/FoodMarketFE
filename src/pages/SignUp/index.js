@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Image } from 'rea
 import { Header, TextInput, Button, Gap } from '../../components';
 import { useDispatch } from 'react-redux';
 import { showMessage, useForm } from '../../utils';
-import { launchCamera, launchImageLibrary  } from 'react-native-image-picker';
+import { launchCamera, launchImageLibrary } from 'react-native-image-picker';
 
 const SignUp = ({ navigation }) => {
     const [form, setform] = useForm({
@@ -12,7 +12,7 @@ const SignUp = ({ navigation }) => {
         password: '',
 
     });
-    
+
     const [photo, setPhoto] = useState('');
     const dispatch = useDispatch();
 
@@ -51,56 +51,56 @@ const SignUp = ({ navigation }) => {
     // }
 
     const addPhoto = () => {
-    launchImageLibrary(
-        {
-            mediaType: 'photo',
-            quality: 0.5,
-            maxWidth: 200,
-            maxHeight: 200,
-        },
-        (response) => {
-            console.log('Response = ', response);
+        launchImageLibrary(
+            {
+                mediaType: 'photo',
+                quality: 0.5,
+                maxWidth: 200,
+                maxHeight: 200,
+            },
+            (response) => {
+                console.log('Response = ', response);
 
-            if (response.didCancel) {
-                console.log('User cancelled image picker');
-                showMessage('You did not select any photo');
-                return;
+                if (response.didCancel) {
+                    console.log('User cancelled image picker');
+                    showMessage('You did not select any photo');
+                    return;
+                }
+
+                if (response.errorCode) {
+                    console.log('ImagePicker Error: ', response.errorMessage);
+                    showMessage(response.errorMessage || 'Failed to select photo');
+                    return;
+                }
+
+                if (response.assets && response.assets.length > 0) {
+                    const asset = response.assets[0];
+
+                    const source = {
+                        uri: asset.uri,
+                    };
+
+                    const dataImage = {
+                        uri: asset.uri,
+                        type: asset.type,
+                        name: asset.fileName,
+                    };
+
+                    setPhoto(source);
+
+                    dispatch({
+                        type: 'SET_PHOTO',
+                        value: dataImage,
+                    });
+
+                    dispatch({
+                        type: 'SET_UPLOAD_STATUS',
+                        value: true,
+                    });
+                }
             }
-
-            if (response.errorCode) {
-                console.log('ImagePicker Error: ', response.errorMessage);
-                showMessage(response.errorMessage || 'Failed to select photo');
-                return;
-            }
-
-            if (response.assets && response.assets.length > 0) {
-                const asset = response.assets[0];
-
-                const source = {
-                    uri: asset.uri,
-                };
-
-                const dataImage = {
-                    uri: asset.uri,
-                    type: asset.type,
-                    name: asset.fileName,
-                };
-
-                setPhoto(source);
-
-                dispatch({
-                    type: 'SET_PHOTO',
-                    value: dataImage,
-                });
-
-                dispatch({
-                    type: 'SET_UPLOAD_STATUS',
-                    value: true,
-                });
-            }
-        }
-    );
-};
+        );
+    };
 
 
     return (
@@ -112,11 +112,11 @@ const SignUp = ({ navigation }) => {
                         <TouchableOpacity onPress={addPhoto}>
                             <View style={styles.boderPhoto}>
                                 {
-                                    photo ? (<Image source={photo} style={styles.photoContainer}/>                                        
+                                    photo ? (<Image source={photo} style={styles.photoContainer} />
                                     ) : (
-                                    <View style={styles.photoContainer}>
-                                        <Text style={styles.addPhoto}>Add Photo</Text>
-                                    </View>
+                                        <View style={styles.photoContainer}>
+                                            <Text style={styles.addPhoto}>Add Photo</Text>
+                                        </View>
                                     )
                                 }
                             </View>
