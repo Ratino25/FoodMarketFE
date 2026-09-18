@@ -1,4 +1,5 @@
 import React from 'react';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Dimensions, ScrollView, StyleSheet, Text, View, useWindowDimensions } from 'react-native';
 import { SceneMap, TabBar, TabView } from 'react-native-tab-view';
 import { foodDummy1, foodDummy2, foodDummy3 } from '../../../assets';
@@ -41,6 +42,11 @@ const renderTabBar = (props) => {
 
 const Account = () => {
     const navigation = useNavigation();
+    const signOut = () => {
+        AsyncStorage.multiRemove(['userProfile', 'token']).then(() => {
+            navigation.reset({index: 0, routes: [{name: 'SignIn'}]});
+        });
+    }
     return (
         <ScrollView showsVerticalScrollIndicator={false}>
             <View style={{ paddingTop: 8, paddingHorizontal: 24, backgroundColor: 'white', elevation: 0, shadowOpacity: 0, borderBottomColor: '#F2F2F2', borderBottomWidth: 1 }}>
@@ -48,6 +54,8 @@ const Account = () => {
                 <ItemListMenu text="Home Address" />
                 <ItemListMenu text="Security"/>
                 <ItemListMenu text="Payments" />
+                <ItemListMenu text="SignOut" onPress={signOut} />
+
             </View>
         </ScrollView>
     )

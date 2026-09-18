@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, Platform } from 'react-native';
 import { Header, TextInput, Button, Gap } from '../../components';
-import { useForm } from '../../utils';
+import { getData, useForm } from '../../utils';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { setLoading, signInAction } from '../../redux/action';
@@ -15,6 +15,9 @@ const SignIn = ({ navigation }) => {
     });
 
     const dispatch = useDispatch();
+
+    
+
     const onSubmit = () => {
         
         dispatch(signInAction(form, navigation));

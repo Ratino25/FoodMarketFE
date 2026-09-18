@@ -2,12 +2,13 @@ import axios from "axios";
 import { Platform } from "react-native";
 import { showMessage, storeData } from "../../utils";
 import { setLoading } from "./global";
+import { API_HOST } from "../../config";
 
 const platform = Platform.OS === 'android' ? '10.0.2.2' : '127.0.0.1';
 
-const API_HOST = {
-    url: `http://${platform}:8000/api`,
-}
+// const API_HOST = {
+//     url: `http://${platform}:8000/api`,
+// }
 
 export const singUpAction = (dataRegister, photoReducer, navigation) => (dispatch) => {   
 

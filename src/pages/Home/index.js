@@ -1,11 +1,20 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { ScrollView, StyleSheet, View, useWindowDimensions } from 'react-native';
 import { foodDummy1, foodDummy2, foodDummy3 } from '../../assets';
 import { FoodCard, Gap, HomeProfile, HomeTabSection } from '../../components';
+import { useDispatch, useSelector } from 'react-redux';
+import {getFoodData} from '../../redux/action/home';
 
 
 const Home = () => {
     const { height } = useWindowDimensions();
+
+    const dispatch = useDispatch();
+    const {food} = useSelector((state) => state.homeReducer); 
+
+    useEffect(() => {
+        dispatch(getFoodData());
+    })
 
     return (
         <ScrollView
@@ -18,9 +27,12 @@ const Home = () => {
                 <ScrollView horizontal showsHorizontalScrollIndicator={false} >
                     <View style={styles.foodCardContainer} >
                         <Gap width={24} />
-                        <FoodCard image={foodDummy1} />
-                        <FoodCard image={foodDummy2} />
-                        <FoodCard image={foodDummy3} />
+                        {food.map((itemFood) => {
+                            return (
+                                <FoodCard name={itemFood.name} image={{uri: itemFood.picturePath}} rating={itemFood.rate} />        
+                            )
+                        })}
+                        
                         {/* <Gap width={24} /> */}
                     </View>
                 </ScrollView>

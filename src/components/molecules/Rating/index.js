@@ -2,17 +2,30 @@ import React from "react";
 import { StyleSheet, Text, View, Image } from "react-native";
 import { IcStarOff, IcStarOn } from "../../../assets";
 
-const Rating = () => {
+const Rating = ({ number }) => {
+    const renderStart = () => {
+        let start = [];
+        for (let i = 1; i <= 5; i++) {
+            if (i <= number) {
+                start.push(<IcStarOn />)
+            } else {
+                start.push(<IcStarOff />)
+            }
+
+        }
+        return start;
+    }
     return (
         <View style={styles.ratingContainer} >
             <View style={styles.startContainer} >
+                {renderStart()}
+                {/* <IcStarOn />
                 <IcStarOn />
                 <IcStarOn />
                 <IcStarOn />
-                <IcStarOn />
-                <IcStarOff />
+                <IcStarOff /> */}
             </View>
-            <Text>4.5</Text>
+            <Text>{number}</Text>
         </View>
     )
 }
@@ -20,11 +33,13 @@ const Rating = () => {
 export default Rating;
 
 const styles = StyleSheet.create({
-     ratingContainer: {
+    ratingContainer: {
         flexDirection: 'row',
+        alignItems: 'center',
     },
     startContainer: {
         flexDirection: 'row',
+        marginRight: 4,
 
     }
 })
