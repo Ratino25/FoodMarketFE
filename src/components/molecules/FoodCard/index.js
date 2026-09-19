@@ -4,6 +4,7 @@ import { foodDummy1, IcStarOff, IcStarOn } from '../../../assets';
 import Rating from '../Rating';
 
 const FoodCard = ({image, name, rating}) => {
+    console.log('image: ', image);
     return (
         <View style={styles.container}>
             <Image source={image || foodDummy1} style={styles.image} />

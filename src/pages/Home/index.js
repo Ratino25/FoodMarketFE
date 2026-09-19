@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { ScrollView, StyleSheet, View, useWindowDimensions } from 'react-native';
-import { foodDummy1, foodDummy2, foodDummy3 } from '../../assets';
 import { FoodCard, Gap, HomeProfile, HomeTabSection } from '../../components';
 import { useDispatch, useSelector } from 'react-redux';
 import {getFoodData} from '../../redux/action/home';
@@ -14,7 +13,7 @@ const Home = () => {
 
     useEffect(() => {
         dispatch(getFoodData());
-    })
+    }, [dispatch])
 
     return (
         <ScrollView
