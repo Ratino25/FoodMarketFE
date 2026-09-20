@@ -1,17 +1,17 @@
 import React from "react";
 import { StyleSheet, Text, View, Image } from "react-native";
 import { IcStarOff, IcStarOn } from "../../../assets";
+import Number from "../Number";
 
 const Rating = ({ number }) => {
     const renderStart = () => {
         let start = [];
         for (let i = 1; i <= 5; i++) {
             if (i <= number) {
-                start.push(<IcStarOn />)
+                start.push(<IcStarOn key={`star-on-${i}`} />)
             } else {
-                start.push(<IcStarOff />)
+                start.push(<IcStarOff key={`star-off-${i}`} />)
             }
-
         }
         return start;
     }
@@ -25,7 +25,8 @@ const Rating = ({ number }) => {
                 <IcStarOn />
                 <IcStarOff /> */}
             </View>
-            <Text>{number}</Text>
+            <Number number={number} type="decimal" />
+            {/* <Text>{number}</Text> */}
         </View>
     )
 }

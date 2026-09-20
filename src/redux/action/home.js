@@ -11,3 +11,22 @@ export const getFoodData = () => (dispatch) => {
         console.log('get food error: ', err);
     })
 }
+
+export const getFoodDataByTypes = (types) => (dispatch) => {
+    axios.get(`${API_HOST.url}/food?types=${types}`)
+    .then(res =>  {
+        if(types == 'new_food'){
+            dispatch({type: 'SET_NEW_TASTE', value: res.data.data.data });
+        }
+        if(types == 'POPULAR'){
+            dispatch({type: 'SET_POPULAR', value: res.data.data.data });
+        }
+        if(types == 'recommended'){
+            dispatch({type: 'SET_RECOMMENDED', value: res.data.data.data });
+        }
+        
+    })
+    .catch(err => {
+        console.log('get food error: ', err);
+    })
+}

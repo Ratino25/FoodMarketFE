@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Dimensions, ScrollView, StyleSheet, Text, View, useWindowDimensions } from 'react-native';
 import { SceneMap, TabBar, TabView } from 'react-native-tab-view';
 import { ItemListFood } from '../../molecules';
 import { foodDummy1, foodDummy2, foodDummy3 } from '../../../assets';
 import { useNavigation } from '@react-navigation/native';
+import { useDispatch, useSelector } from 'react-redux';
+import { getFoodDataByTypes } from '../../../redux/action';
 
 const renderTabBar = (props) => {
     return (
@@ -41,17 +43,20 @@ const renderTabBar = (props) => {
 
 const NewTaste = () => {
     const navigation = useNavigation();
+    const dispatch = useDispatch();
+    const {newTaste} = useSelector(state => state.homeReducer);
+
+    useEffect(() => {
+        dispatch(getFoodDataByTypes('new_food'));
+    }, []);
     return (
         <ScrollView showsVerticalScrollIndicator={false}>
             <View style={{ paddingTop: 8, paddingHorizontal: 24, backgroundColor: 'white', elevation: 0, shadowOpacity: 0, borderBottomColor: '#F2F2F2', borderBottomWidth: 1 }}>
-                <ItemListFood type="product" name="New Taste 1" price="10.000" rating={3} image={foodDummy1} onPress={() => navigation.navigate('FoodDetail')} />
-                <ItemListFood type="product" name="New Taste 2" price="15.000" rating={3} image={foodDummy2} onPress={() => navigation.navigate('FoodDetail')} />
-                <ItemListFood type="product" name="New Taste 3" price="20.000" rating={3} image={foodDummy3} onPress={() => navigation.navigate('FoodDetail')} />
-                <ItemListFood type="product" name="New Taste 4" price="25.000" rating={3} image={foodDummy1} onPress={() => navigation.navigate('FoodDetail')} />
-                <ItemListFood type="product" name="New Taste 5" price="30.000" rating={3} image={foodDummy2} onPress={() => navigation.navigate('FoodDetail')} />
-                <ItemListFood type="product" name="New Taste 6" price="35.000" rating={3} image={foodDummy3} onPress={() => navigation.navigate('FoodDetail')} />
-                <ItemListFood type="product" name="New Taste 7" price="40.000" rating={3} image={foodDummy1} onPress={() => navigation.navigate('FoodDetail')} />
-                <ItemListFood type="product" name="New Taste 8" price="45.000" rating={3} image={foodDummy2} onPress={() => navigation.navigate('FoodDetail')} />
+                {newTaste.map((item) => {
+                    return (
+                        <ItemListFood key={item.id} type="product" name={item.name} price={item.price} rating={item.rate} image={{uri: item.picturePath}} onPress={() => navigation.navigate('FoodDetail')} />        
+                    )
+                })}                
             </View>
         </ScrollView>
     )
@@ -59,17 +64,20 @@ const NewTaste = () => {
 
 const Popular = () => {
     const navigation = useNavigation();
-     return (
+    const dispatch = useDispatch();
+    const {popular} = useSelector(state => state.homeReducer);
+
+    useEffect(() => {
+        dispatch(getFoodDataByTypes('popular'));
+    }, []);
+    return (
         <ScrollView showsVerticalScrollIndicator={false}>
             <View style={{ paddingTop: 8, paddingHorizontal: 24, backgroundColor: 'white', elevation: 0, shadowOpacity: 0, borderBottomColor: '#F2F2F2', borderBottomWidth: 1 }}>
-                <ItemListFood type="product" name="Popular  1" price="10.000" rating={3} image={foodDummy1} onPress={() => navigation.navigate('FoodDetail')} />
-                <ItemListFood type="product" name="Popular 2" price="15.000" rating={3} image={foodDummy2} onPress={() => navigation.navigate('FoodDetail')} />
-                <ItemListFood type="product" name="Popular 3" price="20.000" rating={3} image={foodDummy3} onPress={() => navigation.navigate('FoodDetail')} />
-                <ItemListFood type="product" name="Popular 4" price="25.000" rating={3} image={foodDummy1} onPress={() => navigation.navigate('FoodDetail')} />
-                <ItemListFood type="product" name="Popular 5" price="30.000" rating={3} image={foodDummy2} onPress={() => navigation.navigate('FoodDetail')} />
-                <ItemListFood type="product" name="Popular 6" price="35.000" rating={3} image={foodDummy3} onPress={() => navigation.navigate('FoodDetail')} />
-                <ItemListFood type="product" name="Popular 7" price="40.000" rating={3} image={foodDummy1} onPress={() => navigation.navigate('FoodDetail')} />
-                <ItemListFood type="product" name="Popular 8" price="45.000" rating={3} image={foodDummy2} onPress={() => navigation.navigate('FoodDetail')} />
+                {popular.map((item) => {
+                    return (
+                        <ItemListFood key={item.id} type="product" name={item.name} price={item.price} rating={item.rate} image={{uri: item.picturePath}} onPress={() => navigation.navigate('FoodDetail')} />        
+                    )
+                })}                
             </View>
         </ScrollView>
     )
@@ -77,13 +85,20 @@ const Popular = () => {
 
 const Recommended  = () => {
     const navigation = useNavigation();
-     return (
+    const dispatch = useDispatch();
+    const {recommended} = useSelector(state => state.homeReducer);
+
+    useEffect(() => {
+        dispatch(getFoodDataByTypes('recommended'));
+    }, []);
+    return (
         <ScrollView showsVerticalScrollIndicator={false}>
             <View style={{ paddingTop: 8, paddingHorizontal: 24, backgroundColor: 'white', elevation: 0, shadowOpacity: 0, borderBottomColor: '#F2F2F2', borderBottomWidth: 1 }}>
-                <ItemListFood type="product" name="Recommended 1" price="50.000" rating={3} image={foodDummy1} onPress={() => navigation.navigate('FoodDetail')} />
-                <ItemListFood type="product" name="Recommended 2" price="55.000" rating={3} image={foodDummy2} onPress={() => navigation.navigate('FoodDetail')} />
-                <ItemListFood type="product" name="Recommended 3" price="60.000" rating={3} image={foodDummy3} onPress={() => navigation.navigate('FoodDetail')} />
-                
+                {recommended.map((item) => {
+                    return (
+                        <ItemListFood key={item.id} type="product" name={item.name} price={item.price} rating={item.rate} image={{uri: item.picturePath}} onPress={() => navigation.navigate('FoodDetail')} />        
+                    )
+                })}                
             </View>
         </ScrollView>
     )

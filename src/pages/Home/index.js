@@ -28,7 +28,7 @@ const Home = () => {
                         <Gap width={24} />
                         {food.map((itemFood) => {
                             return (
-                                <FoodCard name={itemFood.name} image={{uri: itemFood.picturePath}} rating={itemFood.rate} />        
+                                <FoodCard key={itemFood.id} name={itemFood.name} image={{uri: itemFood.picturePath}} rating={itemFood.rate} />        
                             )
                         })}
                         
