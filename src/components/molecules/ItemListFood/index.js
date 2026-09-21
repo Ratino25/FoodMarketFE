@@ -14,8 +14,8 @@ const ItemListFood = ({ image, onPress, rating, items, price, type, name, date, 
                     <>
                         <View style={styles.content}>
                             <Text style={styles.title} >{name}</Text>
-                            <Number number={price} />
-                            <Text style={styles.price} >IDR {price}</Text>
+                            <Number number={price} style={styles.price} />
+                            {/* <Text style={styles.price} >IDR {price}</Text> */}
                         </View>
                         <Rating number={rating} />
 
@@ -27,7 +27,8 @@ const ItemListFood = ({ image, onPress, rating, items, price, type, name, date, 
                     <>
                         <View style={styles.content}>
                             <Text style={styles.title} >{name}</Text>
-                            <Text style={styles.price} >IDR {price}</Text>
+                            <Number number={price} style={styles.price} />
+                            {/* <Text style={styles.price} >IDR {price}</Text> */}
                         </View>
                         <Text style={styles.items} >{items} items</Text>
                     </>
@@ -38,7 +39,8 @@ const ItemListFood = ({ image, onPress, rating, items, price, type, name, date, 
                     <>
                         <View style={styles.content}>
                             <Text style={styles.title} >{name}</Text>
-                            <Text style={styles.price} > {items} IDR {price}</Text>
+                            <Number number={price} style={styles.price} />
+                            {/* <Text style={styles.price} > {items} IDR {price}</Text> */}
                         </View>
                     </>
                 )
@@ -48,7 +50,8 @@ const ItemListFood = ({ image, onPress, rating, items, price, type, name, date, 
                     <>
                         <View style={styles.content}>
                             <Text style={styles.title} >{name}</Text>
-                            <Text style={styles.price} > {items} IDR {price}</Text>
+                            <Number number={price} style={styles.price} />
+                            {/* <Text style={styles.price} > {items} IDR {price}</Text> */}
                         </View>
                         <View>
                             <Text style={styles.date} >{date}</Text>
@@ -62,7 +65,8 @@ const ItemListFood = ({ image, onPress, rating, items, price, type, name, date, 
                     <>
                         <View style={styles.content}>
                             <Text style={styles.title} >{name}</Text>
-                            <Text style={styles.price} >IDR {price}</Text>
+                            <Number number={price} style={styles.price} />
+                            {/* <Text style={styles.price} >IDR {price}</Text> */}
                         </View>
                         <Rating rating={rating} />
 

@@ -2,7 +2,7 @@
 import React from 'react';
 import { Text } from 'react-native';
 
-const Number = ({ number, type }) => {
+const Number = ({ number, type, style }) => {
   const parsedNumber = globalThis.Number(number ?? 0);
 
   if (globalThis.Number.isNaN(parsedNumber)) {
@@ -15,11 +15,11 @@ const Number = ({ number, type }) => {
       maximumFractionDigits: 1,
     }).format(parsedNumber);
 
-    return <Text>{value}</Text>;
+    return <Text style={style} >{value}</Text>;
   }
 
   const value = new Intl.NumberFormat('id-ID').format(parsedNumber);
-  return <Text>IDR {value}</Text>;
+  return <Text style={style} >IDR {value}</Text>;
 };
 
 export default Number;

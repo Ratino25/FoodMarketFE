@@ -25,7 +25,7 @@ const Rating = ({ number }) => {
                 <IcStarOn />
                 <IcStarOff /> */}
             </View>
-            <Number number={number} type="decimal" />
+            <Number number={number} type="decimal" style={styles.numberRating} />
             {/* <Text>{number}</Text> */}
         </View>
     )
@@ -36,11 +36,17 @@ export default Rating;
 const styles = StyleSheet.create({
     ratingContainer: {
         flexDirection: 'row',
-        alignItems: 'center',
+        // alignItems: 'center',
     },
     startContainer: {
         flexDirection: 'row',
         marginRight: 4,
 
+    },
+    numberRating: {
+        fontSize: 12,
+        fontFamily: "Poppins-Regular",
+        color: "#8D92A3",
+        marginTop: 2
     }
 })

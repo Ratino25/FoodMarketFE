@@ -1,13 +1,19 @@
 import React from 'react'
 import { ImageBackground, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { foodDummy1, foodDummy6, IcBackWhite } from '../../assets';
-import { Button, Counter, Rating } from '../../components';
+import { Button, Counter, Number, Rating } from '../../components';
 
-const FoodDetail = ({navigation}) => {
+const FoodDetail = ({navigation, route}) => {
+    const {name, picturePath, description, ingredients, rate, price} = route.params;
+    const [totalItem, setTotalItem] = useState(1);
+    const onCounterChange = (value) => {
+        console.log("Counter : ", value);
+        setTotalItem(value);
+    }
     return (
         <View style={styles.page}>
-            <ImageBackground source={foodDummy6} style={styles.cover}>
-                <TouchableOpacity style={styles.back} >
+            <ImageBackground source={{uri: picturePath}} style={styles.cover}>
+                <TouchableOpacity style={styles.back} onPress={() => navigation.goBack()} >
                     <IcBackWhite />
                 </TouchableOpacity>
             </ImageBackground>
@@ -15,19 +21,19 @@ const FoodDetail = ({navigation}) => {
                 <View style={styles.mainContent} >
                     <View style={styles.productContainer} >
                         <View>
-                            <Text style={styles.title} >Cherry Healthy</Text>
-                            <Rating />
+                            <Text style={styles.title} >{name}</Text>
+                            <Rating number={rate} />
                         </View>
-                        <Counter/>
+                        <Counter onValueChange={onCounterChange} />
                     </View>
                     <Text style={styles.desc} >
-                        Makanan khas bandung
+                        {description}
                     </Text>
                     <Text style={styles.label} >
                         Ingredients:
                     </Text>
                     <Text style={styles.desc} >
-                        Seledri, telur, blueberry, madu
+                        {ingredients}
                     </Text>
                 </View>
 
@@ -35,7 +41,8 @@ const FoodDetail = ({navigation}) => {
                 <View style={styles.footer} >
                     <View style={styles.priceContainer} >
                         <Text style={styles.labelTotal} >Total Price:</Text>
-                        <Text style={styles.priceTotal} >IDR 12.000</Text>
+                        <Number number={totalItem + price} style={styles.priceTotal} />
+                        {/* <Text style={styles.priceTotal} >IDR {totalItem + price}</Text> */}
                     </View>
                     <View style={styles.button}>
                         <Button text="Order Now" onPress={() => navigation.navigate("OrderSummary")} />

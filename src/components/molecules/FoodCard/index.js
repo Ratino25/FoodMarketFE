@@ -1,19 +1,22 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import { foodDummy1, IcStarOff, IcStarOn } from '../../../assets';
 import Rating from '../Rating';
 
-const FoodCard = ({image, name, rating}) => {
+const FoodCard = ({ image, name, rating, onPress }) => {
     console.log('image: ', image);
     return (
-        <View style={styles.container}>
-            <Image source={image || foodDummy1} style={styles.image} />
-            <View style={styles.content}>
-                <Text style={styles.text} >{name}</Text>
-                <Rating number={rating} />
-            </View>
+        <TouchableOpacity activeOpacity={0.7} onPress={onPress} >
+            <View style={styles.container}>
+                <Image source={image || foodDummy1} style={styles.image} />
+                <View style={styles.content}>
+                    <Text style={styles.text} >{name}</Text>
+                    <Rating number={rating} />
+                </View>
 
-        </View>
+            </View>
+        </TouchableOpacity>
+
     )
 }
 
@@ -49,5 +52,5 @@ const styles = StyleSheet.create({
         color: '#020202',
 
     },
-   
+
 })

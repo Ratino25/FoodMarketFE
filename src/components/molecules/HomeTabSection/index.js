@@ -54,7 +54,10 @@ const NewTaste = () => {
             <View style={{ paddingTop: 8, paddingHorizontal: 24, backgroundColor: 'white', elevation: 0, shadowOpacity: 0, borderBottomColor: '#F2F2F2', borderBottomWidth: 1 }}>
                 {newTaste.map((item) => {
                     return (
-                        <ItemListFood key={item.id} type="product" name={item.name} price={item.price} rating={item.rate} image={{uri: item.picturePath}} onPress={() => navigation.navigate('FoodDetail')} />        
+                        <ItemListFood key={item.id} type="product" name={item.name} price={item.price} rating={item.rate} image={{uri: item.picturePath}} 
+                            onPress={() => navigation.navigate('FoodDetail', item)} 
+                        
+                        />        
                     )
                 })}                
             </View>
@@ -75,7 +78,8 @@ const Popular = () => {
             <View style={{ paddingTop: 8, paddingHorizontal: 24, backgroundColor: 'white', elevation: 0, shadowOpacity: 0, borderBottomColor: '#F2F2F2', borderBottomWidth: 1 }}>
                 {popular.map((item) => {
                     return (
-                        <ItemListFood key={item.id} type="product" name={item.name} price={item.price} rating={item.rate} image={{uri: item.picturePath}} onPress={() => navigation.navigate('FoodDetail')} />        
+                        <ItemListFood key={item.id} type="product" name={item.name} price={item.price} rating={item.rate} image={{uri: item.picturePath}} 
+                            onPress={() => navigation.navigate('FoodDetail', item)} />        
                     )
                 })}                
             </View>
@@ -96,7 +100,8 @@ const Recommended  = () => {
             <View style={{ paddingTop: 8, paddingHorizontal: 24, backgroundColor: 'white', elevation: 0, shadowOpacity: 0, borderBottomColor: '#F2F2F2', borderBottomWidth: 1 }}>
                 {recommended.map((item) => {
                     return (
-                        <ItemListFood key={item.id} type="product" name={item.name} price={item.price} rating={item.rate} image={{uri: item.picturePath}} onPress={() => navigation.navigate('FoodDetail')} />        
+                        <ItemListFood key={item.id} type="product" name={item.name} price={item.price} rating={item.rate} image={{uri: item.picturePath}} 
+                            onPress={() => navigation.navigate('FoodDetail', item)} />        
                     )
                 })}                
             </View>
