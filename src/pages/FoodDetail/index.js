@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { ImageBackground, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { foodDummy1, foodDummy6, IcBackWhite } from '../../assets';
 import { Button, Counter, Number, Rating } from '../../components';
@@ -6,10 +6,44 @@ import { Button, Counter, Number, Rating } from '../../components';
 const FoodDetail = ({navigation, route}) => {
     const {name, picturePath, description, ingredients, rate, price} = route.params;
     const [totalItem, setTotalItem] = useState(1);
+    const [userProfile, setUserProfile] = useState({})
+
+    useEffect(() => {
+        getData("userProfile").then((res) => {
+            setUserProfile(res);
+        })
+    }, [])
+
+
     const onCounterChange = (value) => {
         console.log("Counter : ", value);
         setTotalItem(value);
     }
+
+    const onOrder = () => {
+        const totalPrice = totalItem * price;
+        const driver = 50000;
+        const tax = 10 / 100 * totalPrice;
+        const total = totalPrice + driver + tax;
+        const data = {
+            item: {
+                name: name,
+                price: price,
+                picturePath: picturePath
+            },
+            transaction: {
+                totalItem: totalItem,
+                totalPrice: totalPrice,
+                driver: driver,
+                tax: tax,
+                total: total
+            },
+            userProfile,
+        };
+
+        navigation.navigate("OrderSummary", data)
+    }
+
     return (
         <View style={styles.page}>
             <ImageBackground source={{uri: picturePath}} style={styles.cover}>
@@ -45,7 +79,8 @@ const FoodDetail = ({navigation, route}) => {
                         {/* <Text style={styles.priceTotal} >IDR {totalItem + price}</Text> */}
                     </View>
                     <View style={styles.button}>
-                        <Button text="Order Now" onPress={() => navigation.navigate("OrderSummary")} />
+                        {/* <Button text="Order Now" onPress={() => navigation.navigate("OrderSummary")} /> */}
+                        <Button text="Order Now" onPress={ onOrder  } />
                     </View>
                 </View>
             </View>
