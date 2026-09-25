@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { ImageBackground, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { IcMin, IcPlus } from '../../../assets';
 

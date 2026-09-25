@@ -1,10 +1,11 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { ImageBackground, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { foodDummy1, foodDummy6, IcBackWhite } from '../../assets';
 import { Button, Counter, Number, Rating } from '../../components';
+import { getData } from '../../utils';
 
 const FoodDetail = ({navigation, route}) => {
-    const {name, picturePath, description, ingredients, rate, price} = route.params;
+    const {id, name, picturePath, description, ingredients, rate, price} = route.params;
     const [totalItem, setTotalItem] = useState(1);
     const [userProfile, setUserProfile] = useState({})
 
@@ -27,9 +28,11 @@ const FoodDetail = ({navigation, route}) => {
         const total = totalPrice + driver + tax;
         const data = {
             item: {
+                id: id,
                 name: name,
                 price: price,
-                picturePath: picturePath
+                picturePath: picturePath,
+                
             },
             transaction: {
                 totalItem: totalItem,
