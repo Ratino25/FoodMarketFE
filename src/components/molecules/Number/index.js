@@ -1,11 +1,10 @@
-
 import React from 'react';
 import { Text } from 'react-native';
 
-const Number = ({ number, type, style }) => {
-  const parsedNumber = globalThis.Number(number ?? 0);
+const NumberComponent = ({ number, type, style }) => {
+  const parsedNumber = Number(number ?? 0);
 
-  if (globalThis.Number.isNaN(parsedNumber)) {
+  if (Number.isNaN(parsedNumber)) {
     return <Text>0</Text>;
   }
 
@@ -22,4 +21,4 @@ const Number = ({ number, type, style }) => {
   return <Text style={style} >IDR {value}</Text>;
 };
 
-export default Number;
+export default NumberComponent;

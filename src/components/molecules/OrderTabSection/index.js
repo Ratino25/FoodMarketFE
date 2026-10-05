@@ -4,6 +4,9 @@ import { SceneMap, TabBar, TabView } from 'react-native-tab-view';
 import { ItemListFood } from '..';
 import { foodDummy1, foodDummy2, foodDummy3 } from '../../../assets';
 import { useNavigation } from '@react-navigation/native';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { getInProgress, getPastOrders, getPostOrders } from '../../../redux/action';
 
 const renderTabBar = (props) => {
     return (
@@ -41,17 +44,53 @@ const renderTabBar = (props) => {
 
 const InProgress = () => {
     const navigation = useNavigation();
+    const dispatch = useDispatch();
+    const { inProgress } = useSelector(state => state.orderReducer)
+    useEffect(() => {
+        dispatch(getInProgress())
+    }, [dispatch]);
     return (
         <ScrollView showsVerticalScrollIndicator={false}>
             <View style={{ paddingTop: 8, paddingHorizontal: 24, backgroundColor: 'white', elevation: 0, shadowOpacity: 0, borderBottomColor: '#F2F2F2', borderBottomWidth: 1 }}>
-                <ItemListFood rating={3} image={foodDummy1} onPress={() => navigation.navigate('OrderDetail')} inProgress={true} items={3} price="150.000" type="in-progress" name="Soup Ayam" />
-                <ItemListFood rating={3} image={foodDummy2} onPress={() => navigation.navigate('OrderDetail')} inProgress={true} items={2} price="100.000" type="in-progress" name="Nasi Goreng" />
-                <ItemListFood rating={3} image={foodDummy3} onPress={() => navigation.navigate('OrderDetail')} inProgress={true} items={1} price="50.000" type="in-progress" name="Mie Goreng" />
-                <ItemListFood rating={3} image={foodDummy1} onPress={() => navigation.navigate('OrderDetail')} inProgress={true} items={4} price="200.000" type="in-progress" name="Sate Ayam" />
-                <ItemListFood rating={3} image={foodDummy2} onPress={() => navigation.navigate('OrderDetail')} inProgress={true} items={2} price="100.000" type="in-progress" name="Gado-Gado" />
-                <ItemListFood rating={3} image={foodDummy3} onPress={() => navigation.navigate('OrderDetail')} inProgress={true} items={3} price="150.000" type="in-progress" name="Nasi Padang" />
-                <ItemListFood rating={3} image={foodDummy1} onPress={() => navigation.navigate('OrderDetail')} inProgress={true} items={1} price="50.000" type="in-progress" name="Soup Ayam" />
-                <ItemListFood rating={3} image={foodDummy2} onPress={() => navigation.navigate('OrderDetail')} inProgress={true} items={2} price="100.000" type="in-progress" name="Nasi Goreng" />
+                {inProgress.map(order => {
+                    return (
+                        <ItemListFood
+                            key={order.id}
+                            // rating={order.food.rate}
+                            image={{ uri: order.food.picturePath }}
+                            onPress={() => navigation.navigate('OrderDetail')}
+                            inProgress={true}
+                            items={order.quantity}
+                            price={order.total}
+                            type="in-progress"
+                            name={order.food.name}
+                        />
+                    )
+
+                })}
+
+                {/* <ItemListFood
+                    rating={3}
+                    image={foodDummy1}
+                    onPress={() => navigation.navigate('OrderDetail')}
+                    inProgress={true}
+                    items={3}
+                    price="150.000"
+                    type="in-progress"
+                    name="Soup Ayam"
+                />
+                <ItemListFood
+                    rating={3}
+                    image={foodDummy1}
+                    onPress={() => navigation.navigate('OrderDetail')}
+                    inProgress={true}
+                    items={3}
+                    price="150.000"
+                    type="in-progress"
+                    name="Soup Ayam"
+                    status="Cancle"
+                /> */}
+
             </View>
         </ScrollView>
     )
@@ -59,17 +98,41 @@ const InProgress = () => {
 
 const PastOrders = () => {
     const navigation = useNavigation();
-     return (
+    const dispatch = useDispatch();
+    const { pastOrders } = useSelector(state => state.orderReducer)
+    useEffect(() => {
+        dispatch(getPastOrders())
+    }, [dispatch]);
+    return (
         <ScrollView showsVerticalScrollIndicator={false}>
             <View style={{ paddingTop: 8, paddingHorizontal: 24, backgroundColor: 'white', elevation: 0, shadowOpacity: 0, borderBottomColor: '#F2F2F2', borderBottomWidth: 1 }}>
-                <ItemListFood rating={3} image={foodDummy1} onPress={() => navigation.navigate('OrderDetail')} items={1} type="past-orders" name="Soup Ayam" price="150.000" date="2023-10-10" status="Selesai" />
-                <ItemListFood rating={3} image={foodDummy2} onPress={() => navigation.navigate('OrderDetail')} items={2} type="past-orders" name="Nasi Goreng" price="100.000" date="2023-10-09" status="Selesai" />
-                <ItemListFood rating={3} image={foodDummy3} onPress={() => navigation.navigate('OrderDetail')} items={1} type="past-orders" name="Mie Goreng" price="50.000" date="2023-10-08" status="Selesai" />
-                <ItemListFood rating={3} image={foodDummy1} onPress={() => navigation.navigate('OrderDetail')} items={4} type="past-orders" name="Sate Ayam" price="200.000" date="2023-10-07" status="Selesai" />
-                <ItemListFood rating={3} image={foodDummy2} onPress={() => navigation.navigate('OrderDetail')} items={2} type="past-orders" name="Gado-Gado" price="100.000" date="2023-10-06" status="Selesai" />
-                <ItemListFood rating={3} image={foodDummy3} onPress={() => navigation.navigate('OrderDetail')} items={3} type="past-orders" name="Nasi Padang" price="150.000" date="2023-10-05" status="Selesai" />
-                <ItemListFood rating={3} image={foodDummy1} onPress={() => navigation.navigate('OrderDetail')} items={1} type="past-orders" name="Soup Ayam" price="150.000" date="2023-10-04" status="Selesai" />
-                <ItemListFood rating={3} image={foodDummy2} onPress={() => navigation.navigate('OrderDetail')} items={2} type="past-orders" name="Nasi Goreng" price="150.000" date="2023-10-04" status=""  />
+                {pastOrders.map(order => {
+                    return (
+                        <ItemListFood
+                            key={order.id}
+                            image={{uri: order.food.picturePath}}
+                            onPress={() => navigation.navigate('OrderDetail')}
+                            items={order.quantity}
+                            type="past-orders"
+                            name={order.food.name}
+                            price={order.total}
+                            date={order.created_at}
+                            status={order.status}
+                        />
+                    )
+                })}
+                {/* <ItemListFood
+                    rating={3}
+                    image={foodDummy1}
+                    onPress={() => navigation.navigate('OrderDetail')}
+                    items={1}
+                    type="past-orders"
+                    name="Soup Ayam"
+                    price="150.000"
+                    date="2023-10-10"
+                    status="Selesai"
+                /> */}
+
             </View>
         </ScrollView>
     )
@@ -78,7 +141,7 @@ const PastOrders = () => {
 
 const renderScene = SceneMap({
     1: InProgress,
-    2: PastOrders,    
+    2: PastOrders,
 });
 
 const OrderTabSection = ({ title, type, onPress }) => {

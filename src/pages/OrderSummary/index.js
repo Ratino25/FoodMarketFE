@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { Button, Gap, Header, ItemListFood, ItemValue, Loading } from '../../components';
 import { foodDummy1 } from '../../assets';
-import { Axios } from 'axios';
+import axios from 'axios';
 import { API_HOST } from '../../config';
 import { WebView } from 'react-native-webview';
 import { getData } from '../../utils';
@@ -14,11 +14,7 @@ const OrderSummay = ({ navigation, route }) => {
     const [paymentUrl, setPaymentUrl] = useState("https://google.com");
 
 
-    useEffect(() => {
-        getData("token").then((res) => {
-            setToken(res.value);
-        })
-    }, [])
+    
 
     const onCheckOut = () => {
         const data = {
@@ -28,37 +24,42 @@ const OrderSummay = ({ navigation, route }) => {
             total: transaction.total,
             status: "PENDING"
         };
-        console.log('checkout data: ', token);
-        Axios.post(`${API_HOST.url}/checkout`, data, {
-        headers: {
-            'Authorization': token,
-            'Content-Type': 'application/json',
-        }
-    })
-        .then(res => {
-            console.log('success checkout: ', res.data);
 
-            setIsPayment(true);
-            setPaymentUrl(res.data.data.paymentUrl);
+        getData("token").then(resToken => {
+            axios.post(`${API_HOST.url}/checkout`, data, {
+                headers: {
+                    'Authorization': resToken.value,
+                    'Content-Type': 'application/json',
+                }
+            })
+                .then(res => {
+                    console.log('success checkout: ', res.data);
+
+                    setIsPayment(true);
+                    setPaymentUrl(res.data.data.paymentUrl);
+                })
+                .catch(err => {
+                    console.log('error checkout: ', err);
+
+                    console.log('response:', err.response);
+                    console.log('response data:', err.response?.data);
+                    console.log('status:', err.response?.status);
+                    console.log('message:', err.message);
+                });
         })
-        .catch(err => {
-            console.log('error checkout: ', err);
+        // console.log('checkout data: ', token);
 
-            console.log('response:', err.response);
-            console.log('response data:', err.response?.data);
-            console.log('status:', err.response?.status);
-            console.log('message:', err.message);
-        });
     }
 
-    
-    
+
+
     const onNavChange = (state) => {
         console.log('nav state change: ', state);
         const urlSuccess = 'http://foodmarket-backend.buildwithangga.id/midtrans/success';
         const title = "Laravel";
-        if(state.title === title){
-            navigation.replace('SuccessOrder');
+        if (state.title === title) {
+            // navigation.replace('SuccessOrder');
+            navigation.reset({ index: 0, routes: [{ name: 'SuccessOrder' }] });
         }
     }
 
@@ -70,7 +71,7 @@ const OrderSummay = ({ navigation, route }) => {
                     source={{ uri: paymentUrl }}
                     startInLoadingState={true}
                     renderLoading={() => <Loading />}
-                // onNavigationStateChange={(state) => console.log('nav state change: ', state)} // debugging purpose
+                    // onNavigationStateChange={(state) => console.log('nav state change: ', state)} // debugging purpose
                     onNavigationStateChange={onNavChange}
                 />
             </>

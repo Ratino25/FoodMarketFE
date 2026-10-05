@@ -48,7 +48,7 @@ const NewTaste = () => {
 
     useEffect(() => {
         dispatch(getFoodDataByTypes('new_food'));
-    }, []);
+    }, [dispatch]);
     return (
         <ScrollView showsVerticalScrollIndicator={false}>
             <View style={{ paddingTop: 8, paddingHorizontal: 24, backgroundColor: 'white', elevation: 0, shadowOpacity: 0, borderBottomColor: '#F2F2F2', borderBottomWidth: 1 }}>
@@ -72,7 +72,7 @@ const Popular = () => {
 
     useEffect(() => {
         dispatch(getFoodDataByTypes('popular'));
-    }, []);
+    }, [dispatch]);
     return (
         <ScrollView showsVerticalScrollIndicator={false}>
             <View style={{ paddingTop: 8, paddingHorizontal: 24, backgroundColor: 'white', elevation: 0, shadowOpacity: 0, borderBottomColor: '#F2F2F2', borderBottomWidth: 1 }}>
@@ -94,7 +94,7 @@ const Recommended  = () => {
 
     useEffect(() => {
         dispatch(getFoodDataByTypes('recommended'));
-    }, []);
+    }, [dispatch]);
     return (
         <ScrollView showsVerticalScrollIndicator={false}>
             <View style={{ paddingTop: 8, paddingHorizontal: 24, backgroundColor: 'white', elevation: 0, shadowOpacity: 0, borderBottomColor: '#F2F2F2', borderBottomWidth: 1 }}>
