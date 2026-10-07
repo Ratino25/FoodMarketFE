@@ -2,36 +2,64 @@ import React from "react";
 import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { Button, Gap, Header, ItemListFood, ItemValue } from "../../components";
 import { foodDummy1 } from "../../assets";
+import { getData } from "../../utils";
+import { Axios } from "axios";
+import { API_HOST } from "../../config";
 
-const OrderDetail = ({ navigation }) => {
+const OrderDetail = ({ route, navigation }) => {
+    const order = route.params;
+
+    const onCancel = () => {
+        const data = {
+            status: 'CANCELLED'
+        }
+        getData('token').then(resToken => {
+            Axios.post(`${API_HOST.url}/transaction /${order.id}`, data , {
+                headers: {
+                    'Authorization': resToken.value
+                }
+            })
+            .then(res => {
+                console.log('Succes cancel order : ', res);
+                navigation.reset({index: 0, routes: [{name: 'MainApp'}]});     
+            })
+            .catch(err => {
+                console.log('Error cancel order : ', err);
+            })
+        })
+        // navigation.reset({index: 0, routes: [{name: 'Order'}]});
+    }
     return(
         <ScrollView>
-            <Header title="Payment" subtitle="You deserve better meal" onBack={() => {}} />
+            <Header title="Payment" subtitle="You deserve better meal" onBack={() => navigation.goBack()} />
             <View style={styles.content}>
                 <Text style={styles.label} >Item Ordered</Text>
-                <ItemListFood type="order-summary" name="Soup Ayam" price="150.000" items={14} image={foodDummy1} />
+                <ItemListFood type="order-summary" name={order.food.name} price={order.food.price} items={order.quantity} image={{uri: order}} />
                 <Text style={styles.label} >Details Transaction</Text>
-                <ItemValue label="Cherry" value="IDR 18.000" />
-                <ItemValue label="Drive" value="IDR 5000" />
-                <ItemValue label="Tax 10%" value="IDR 1000" />
-                <ItemValue label="Total Price" value="IDR 100.000" valueColor="#1ABC9C" />
+                <ItemValue label={order.food.name} value={order.food.price * order.quantity} type="currency" />
+                <ItemValue label="Drive" value={50000} type="currency" />
+                <ItemValue label="Tax 10%" value={10 / 100 * order.total} type="currency" />
+                <ItemValue label="Total Price" value={order.total} valueColor="#1ABC9C" type="currency" />
             </View>
 
             <View style={styles.content}>
                 <Text style={styles.label} >Delivery to: </Text>
-                <ItemValue label="Name" value="Ration" />
-                <ItemValue label="Phone No" value="08673534507" />
-                <ItemValue label="Address" value="Cinere" />
-                <ItemValue label="House No" value="A5" />
-                <ItemValue label="City" value="Depok" />
+                <ItemValue label="Name" value={order.user.name} />
+                <ItemValue label="Phone No" value={order.user.phoneNumber} />
+                <ItemValue label="Address" value={order.user.address} />
+                <ItemValue label="House No" value={order.user.houseNumber} />
+                <ItemValue label="City" value={order.user.city} />
             </View>
 
             <View style={styles.content}>
                 <Text style={styles.label} >Order Status: </Text>                
-                <ItemValue label="#FM209214" value="Depok" valueColor="#1ABC9C" />
+                <ItemValue label={`#${order.id}`} value={order.status} valueColor={order.status === 'CANCELLED' ? '#D9435E' : '#1ABC9C'} />
             </View>
             <View style={styles.button}>
-                <Button text="Cancel My Order" onPress={() => navigation.replace('SuccessOrder')} color="#D9435E" textColor="white" />
+                {order.status === 'PENDDING' && (
+                    <Button text="Cancel My Order" onPress={onCancel} color="#D9435E" textColor="white" />
+                ) }
+                
             </View>
 
             <Gap height={40} />
