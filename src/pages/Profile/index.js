@@ -1,19 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Image, StyleSheet, Text, View } from 'react-native';
 import { profileDummy } from '../../assets';
 import { ProfileTabSection } from '../../components';
 
 const Profile = () => {
+    const [userProfile, setUserProfile] = useState({});
+    useEffect(() => {
+        getDAta('userProfile').then(res => {
+            setUserProfile(res);
+        })
+    }, [] );
     return (
         <View style={styles.page}>
             <View style={styles.profileDetail}>
                 <View style={styles.photo}>
                     <View style={styles.boderPhoto}>
-                        <Image source={profileDummy} style={styles.photoContainer} />
+                        <Image source={{uri: userProfile.profile_photo_url}} style={styles.photoContainer} />
                     </View>
                 </View>
-                <Text style={styles.name}>Name</Text>
-                <Text style={styles.email}>Email@email.com</Text>
+                <Text style={styles.name}>{userProfile.name}</Text>
+                <Text style={styles.email}> {userProfile.email} </Text>
             </View>
 
             <View style={styles.content}>
